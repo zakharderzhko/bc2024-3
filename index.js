@@ -23,17 +23,20 @@ try {
   process.exit(1);
 }
 
+const neededData = data.filter(item => item.parent === "BS3_BanksLiab");
+const result = neededData.map(item => `${item.txten}: ${item.value}`).join('\n');
+
 if (options.output) {
-  fs.writeFileSync(options.output, JSON.stringify(data, null, 2)); 
+  fs.writeFileSync(options.output, result); 
 }
 
 if (options.display) {
-  console.log(JSON.stringify(data, null, 2)); 
+  console.log(result); 
 }
 
 if (options.output && options.display) {
-  fs.writeFileSync(options.output, JSON.stringify(data, null, 2)); 
-  console.log(JSON.stringify(data, null, 2)); 
+  fs.writeFileSync(options.output, result); 
+  console.log(result); 
 }
 
 if (!options.output && !options.display) {
